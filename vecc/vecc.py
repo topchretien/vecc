@@ -62,7 +62,7 @@ def valid(args):
         sys.exit(2)
 
 
-def extract(code, extensions = ['mp4']):
+def extract(code, extensions = ['mp4'], validation_link = False):
     video_id, provider = match(code)
     clean_code = get_clean_code(video_id, provider)
     real_link = get_link(video_id, provider)
@@ -106,6 +106,8 @@ def extract(code, extensions = ['mp4']):
         'provider': provider,
         'clean_code': clean_code,
         'real_link': real_link}
+    if validation_link:
+        ret['validation_link'] = get_validation(video_id, provider)
     try:
         Api = PROVIDERS_API[provider]
     except KeyError:

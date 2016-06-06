@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.01**:
+
+  * added validation_link option to extract
+
 * **v1.0**:
 
   * lots of bugfixes after testing 20000 different video links, first mature version
