@@ -9,7 +9,7 @@ import urllib
 import requests
 
 from . import __version__
-from .core import get_clean_code, match, validate, get_link
+from .core import get_clean_code, match, validate, get_link, get_validation
 
 from apis.webapi import APIError
 from apis.youtube import YoutubeAPI
