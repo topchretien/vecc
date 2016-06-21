@@ -15,10 +15,10 @@ LIVE_PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://www.youtube.com/watch?v={video_id}',
         'matches': [
-            r"""youtube.[^/]+/watch\?[^v]*v\=([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/watch\?[^v]*v\=([^"'/&?@]+)""",
             r"""youtu.be/([^"'/&?@]+)""",
-            r"""youtube.[^/]+/v/([^"'/&?@]+)""",
-            r"""youtube.[^/]+/embed/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/v/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
         ]
     },
     'creacast': {
@@ -28,7 +28,7 @@ LIVE_PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://www.creacast.com/{video_id}',
         'matches': [
-            r"""creacast.[^/]+/([^"'/]+)""",
+            r"""creacast.[a-z.]+/([^"'/]+)""",
         ]
     },
     'piksel': {
@@ -38,7 +38,7 @@ LIVE_PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://player.piksel.com/{video_id}',
         'matches': [
-            r"""piksel.[^/]+/([^"'/]+)""",
+            r"""piksel.[a-z.]+/([^"'/]+)""",
         ]
     },
     'lightcastmedia': {
@@ -47,7 +47,7 @@ LIVE_PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': '{video_id}',
         'matches': [
-            r"""([a-zA-Z0-9]+\.lightcastmedia.[^/]+/.+)""",
+            r"""([a-zA-Z0-9]+\.lightcastmedia.[a-z.]+/.+)""",
         ]
     },
 }
@@ -61,10 +61,10 @@ PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://www.youtube.com/watch?v={video_id}',
         'matches': [
-            r"""youtube.[^/]+/watch\?[^v]*v\=([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/watch\?[^v]*v\=([^"'/&?@]+)""",
             r"""youtu.be/([^"'/&?@]+)""",
-            r"""youtube.[^/]+/v/([^"'/&?@]+)""",
-            r"""youtube.[^/]+/embed/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/v/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
         ]
     },
     'vimeo': {
@@ -74,11 +74,11 @@ PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://vimeo.com/{video_id}',
         'matches': [
-            r"""vimeo.[^/]+/video/([^"'/&?@]+)""",
-            r"""vimeo.[^/]+/moogaloop.swf\?clip_id=([^"'/&?@]+)""",
-            r"""vimeo.[^/]+/[a-z]+/([^a-z"'/&?@]+)""",
-            r"""vimeo.[^/]+/[a-z]+/[a-z]+/([^a-z"'/&?@]+)""",
-            r"""vimeo.[^/]+/([^"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/video/([^"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/moogaloop.swf\?clip_id=([^"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/[a-z]+/([^a-z"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/[a-z]+/[a-z]+/([^a-z"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/([^"'/&?@]+)""",
         ]
     },
     'google': {
@@ -92,7 +92,7 @@ PROVIDERS = {
         'validation_template': 'http://video.google.com/videoplay?'
                                'docid={video_id}',
         'matches': [
-            r"""video.google.[^/]+/googleplayer.swf\?docId=([^"'/&?@]+)""",
+            r"""video.google.[a-z.]+/googleplayer.swf\?docId=([^"'/&?@]+)""",
         ]
     },
     'dailymotion': {
@@ -102,10 +102,10 @@ PROVIDERS = {
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': 'http://www.dailymotion.com/video/{video_id}',
         'matches': [
-            r"""dailymotion.[^/]+/swf/video/([^"'/&?@]+)""",
-            r"""dailymotion.[^/]+/swf/([^"'/&?@]+)""",
-            r"""dailymotion.[^/]+/embed/video/([^"'/&?@]+)""",
-            r"""dailymotion.[^/]+/video/([^"'/&?@]+)_.*""",
+            r"""dailymotion.[a-z.]+/swf/video/([^"'/&?@]+)""",
+            r"""dailymotion.[a-z.]+/swf/([^"'/&?@]+)""",
+            r"""dailymotion.[a-z.]+/embed/video/([^"'/&?@]+)""",
+            r"""dailymotion.[a-z.]+/video/([^"'/&?@]+)_.*""",
             r"""dai.ly/([^"'/&?@]+)""",
         ]
     },
@@ -129,9 +129,9 @@ PROVIDERS = {
         'validation_template': 'https://www.facebook.com/video.php?v='
                                '{video_id}',
         'matches': [
-            r"""facebook.[^/]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
-            r"""facebook.[^/]+/video/embed\?video_id\=([^"'/&?@]+)""",
-            r"""facebook.[^/]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/video/embed\?video_id\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
         ]
     },
 }

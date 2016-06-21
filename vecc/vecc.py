@@ -62,7 +62,8 @@ def valid(args):
         sys.exit(2)
 
 
-def extract(code, extensions = ['mp4'], validation_link = False):
+def extract(code, extensions = ['mp4'],
+    validate = True, validation_link = False):
     video_id, provider = match(code)
     clean_code = get_clean_code(video_id, provider)
     real_link = get_link(video_id, provider)
@@ -108,26 +109,28 @@ def extract(code, extensions = ['mp4'], validation_link = False):
         'real_link': real_link}
     if validation_link:
         ret['validation_link'] = get_validation(video_id, provider)
-    try:
-        Api = PROVIDERS_API[provider]
-    except KeyError:
-        sys.exit()
-    api = Api()
-    try:
-        if api.check(video_id):
-            details = api.video_data
-            ret.update(details)
-        else:
+    if validate:
+        try:
+            Api = PROVIDERS_API[provider]
+        except KeyError:
             ret["status"] = False
-    except APIError as err:
-        ret["errno"] = err.errno
-        ret["errmsg"] = err.msg
-        ret["status"] = False
-    except Exception as e:
-        if hasattr(e, '__module__') and e.__module__ == "requests.exceptions":
-            ret["errno"] = -1
-            ret["errmsg"] = "Error type: " + e.__class__.__name__
-        ret["status"] = False
+            return ret
+        api = Api()
+        try:
+            if api.check(video_id):
+                details = api.video_data
+                ret.update(details)
+            else:
+                ret["status"] = False
+        except APIError as err:
+            ret["errno"] = err.errno
+            ret["errmsg"] = err.msg
+            ret["status"] = False
+        except Exception as e:
+            if hasattr(e, '__module__') and e.__module__ == "requests.exceptions":
+                ret["errno"] = -1
+                ret["errmsg"] = "Error type: " + e.__class__.__name__
+            ret["status"] = False
     return ret
 
 
