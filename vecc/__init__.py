@@ -4,6 +4,6 @@
 __version__ = '1.02'
 
 try:
-    from vecc import extract, clean, valid
+    from .vecc import extract, clean, valid
 except:
     pass
