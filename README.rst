@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.02**:
+
+  * improved provider origin test
+
 * **v1.01**:
 
   * added validation_link option to extract
