@@ -11,11 +11,11 @@ import requests
 from . import __version__
 from .core import get_clean_code, match, validate, get_link, get_validation
 
-from apis.webapi import APIError
-from apis.youtube import YoutubeAPI
-from apis.dailymotion import DailymotionAPI
-from apis.vimeo import VimeoAPI
-from apis.facebook import FacebookAPI
+from .apis.webapi import APIError
+from .apis.youtube import YoutubeAPI
+from .apis.dailymotion import DailymotionAPI
+from .apis.vimeo import VimeoAPI
+from .apis.facebook import FacebookAPI
 
 
 PROVIDERS_API = {
