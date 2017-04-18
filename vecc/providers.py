@@ -8,6 +8,16 @@ List here the video providers that should be used to match a video.
 """
 
 LIVE_PROVIDERS = {
+    'youtubechannel': {
+        'link_template': '//www.youtube.com/embed/live_stream?channel='
+                         '{video_id}',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'http://www.youtube.com/watch?v={video_id}',
+        'matches': [
+            r"""youtube.[a-z.]+/embed/live_stream?channel=([^"'/&?@]+)""",
+        ]
+    },
     'youtube': {
         'link_template': '//www.youtube.com/embed/'
                          '{video_id}?autoplay=1&rel=0',
@@ -48,6 +58,18 @@ LIVE_PROVIDERS = {
         'validation_template': '{video_id}',
         'matches': [
             r"""([a-zA-Z0-9]+\.lightcastmedia.[a-z.]+/.+)""",
+        ]
+    },
+    'facebook': {
+        'link_template': '//www.facebook.com/video/embed?video_id={video_id}',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'https://www.facebook.com/video.php?v='
+                               '{video_id}',
+        'matches': [
+            r"""facebook.[a-z.]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/video/embed\?video_id\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
         ]
     },
 }

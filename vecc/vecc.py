@@ -5,7 +5,6 @@ from __future__ import print_function
 
 import argparse
 import sys
-import urllib
 import requests
 
 from . import __version__
@@ -81,7 +80,7 @@ def extract(code, extensions = ['mp4'],
                         getcode = 'http:'+code
                     else:
                         getcode = code
-                    codeid = urllib.urlopen(getcode).getcode()
+                    codeid = requests.head(getcode).status_code
                     if codeid == 200:
                         vidinfos['status'] = True
                     else:
@@ -93,10 +92,11 @@ def extract(code, extensions = ['mp4'],
                         if 500 <= codeid < 600:
                             vidinfos["errmsg"] = 'HTTP Server Error'
                         vidinfos['status'] = False
-                except IOError as e:
-                    vidinfos['status'] = False
-                    vidinfos["errno"] = -1
-                    vidinfos["errmsg"] = e.strerror
+                except Exception as e:
+                    if hasattr(e, '__module__') and e.__module__ == "requests.exceptions":
+                        ret["errno"] = -1
+                        ret["errmsg"] = "Error type: " + e.__class__.__name__
+                    ret["status"] = False
                 return vidinfos
         return {
             'status': False,
