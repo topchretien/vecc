@@ -9,12 +9,14 @@ import requests
 
 from . import __version__
 from .core import get_clean_code, match, validate, get_link, get_validation
+from .providers import PROVIDERS
 
 from apis.webapi import APIError
 from apis.youtube import YoutubeAPI
 from apis.dailymotion import DailymotionAPI
 from apis.vimeo import VimeoAPI
 from apis.facebook import FacebookAPI
+from apis.piksel import PikselAPI
 
 
 PROVIDERS_API = {
@@ -22,6 +24,7 @@ PROVIDERS_API = {
     'dailymotion': DailymotionAPI,
     'vimeo': VimeoAPI,
     'facebook': FacebookAPI,
+    'piksel' : PikselAPI,
 }
 
 
@@ -62,10 +65,10 @@ def valid(args):
 
 
 def extract(code, extensions = ['mp4'],
-    validate = True, validation_link = False):
-    video_id, provider = match(code)
-    clean_code = get_clean_code(video_id, provider)
-    real_link = get_link(video_id, provider)
+    validate = True, validation_link = False, providers=PROVIDERS):
+    video_id, provider = match(code, providers)
+    clean_code = get_clean_code(video_id, provider, providers)
+    real_link = get_link(video_id, provider, providers)
     if not clean_code:
         extension = code[-4:].lower()
         for ext in extensions:
@@ -108,7 +111,7 @@ def extract(code, extensions = ['mp4'],
         'clean_code': clean_code,
         'real_link': real_link}
     if validation_link:
-        ret['validation_link'] = get_validation(video_id, provider)
+        ret['validation_link'] = get_validation(video_id, provider, providers)
     if validate:
         try:
             Api = PROVIDERS_API[provider]
