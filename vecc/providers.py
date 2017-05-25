@@ -21,6 +21,17 @@ LIVE_PROVIDERS = {
             r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
         ]
     },
+    'youtubechannel': {
+        'link_template': '//www.youtube.com/embed/'
+                         'live_stream?channel={video_id}',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'http://www.youtube.com/embed/'
+                               'live_stream?channel={video_id}',
+        'matches': [
+            r"""youtube.[a-z.]+/embed/live_stream\?channel\=([^"'/&?@]+)""",
+        ]
+    },
     'creacast': {
         'link_template': '//www.creacast.com/'
                          '{video_id}',

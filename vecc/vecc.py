@@ -20,6 +20,7 @@ from apis.piksel import PikselAPI
 
 
 PROVIDERS_API = {
+    'youtubechannel': YoutubeAPI,
     'youtube': YoutubeAPI,
     'dailymotion': DailymotionAPI,
     'vimeo': VimeoAPI,
