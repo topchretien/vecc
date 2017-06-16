@@ -33,7 +33,7 @@ setup(
         'Programming Language :: Python :: 3.3',
     ],
     zip_safe=False,
-    install_requires=['argparse', 'requests', 'python-dateutil', 'beautifulsoup4', 'facepy'],
+    install_requires=['argparse', 'requests', 'python-dateutil', 'beautifulsoup4', 'facepy', 'cssutils'],
     entry_points="""
         [console_scripts]
             vecc = vecc.vecc:main"""

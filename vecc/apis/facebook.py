@@ -7,7 +7,9 @@ import json
 import requests
 import re
 import facepy
+import cssutils
 import dateutil.parser
+from bs4 import BeautifulSoup
 from facepy.exceptions import FacebookError
 
 from .webapi import WebAPI, APIError, convertduration
@@ -29,6 +31,30 @@ class FacebookAPI(WebAPI):
         self._video_id = 0
 
     def _call_api(self):
+        def exceptresp():
+            try:
+                resp = requests.get(
+                    'https://www.facebook.com/video/embed?video_id=' + self._video_id)
+                textsoup = BeautifulSoup(resp.content, "html5lib")
+                firstdiv = textsoup.body.find('div')
+                firstimgstyle = textsoup.body.find('img').get('style')
+                style = cssutils.parseStyle(firstimgstyle)
+                imgurl = style['background-image']
+                imgurl = imgurl.replace('url(', '').replace(')', '')
+                if 'uiBoxRed' in firstdiv.get("class","uiBoxRed"):
+                    return False
+                else:
+                    self._data["status"] = True
+                    self._results = {
+                        'title': "",
+                        'description': '',
+                        'duration': '',
+                        'status': True,
+                        'image': imgurl
+                        }
+                    return True
+            except:
+                return False
         fb = facepy.GraphAPI(self.__token__)
         built_url = self.__url__.format(
             video_id=self._video_id,
@@ -36,9 +62,15 @@ class FacebookAPI(WebAPI):
         try:
             answer = fb.get(built_url)
         except FacebookError as fber:
-            raise APIError(fber.code, fber.message)
+            if exceptresp():
+                return True
+            else:
+                raise APIError(fber.code, fber.message)
         except:
-            raise APIError(500, "Facebook API Error")
+            if exceptresp():
+                return True
+            else:
+                raise APIError(500, "Facebook API Error")
         else:
             if "status" in answer:
                 self._data = answer
