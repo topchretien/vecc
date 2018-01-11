@@ -21,8 +21,19 @@ LIVE_PROVIDERS = {
             r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
         ]
     },
+    'youtubechannel': {
+        'link_template': '//www.youtube.com/embed/'
+                         'live_stream?channel={video_id}',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'http://www.youtube.com/embed/'
+                               'live_stream?channel={video_id}',
+        'matches': [
+            r"""youtube.[a-z.]+/embed/live_stream\?channel\=([^"'/&?@]+)""",
+        ]
+    },
     'creacast': {
-        'link_template': 'http://www.creacast.com/'
+        'link_template': '//www.creacast.com/'
                          '{video_id}',
         'embed_template': '<iframe width="480" height="395" '
                           'src="{video_link}" frameborder="0"></iframe>',
@@ -32,7 +43,7 @@ LIVE_PROVIDERS = {
         ]
     },
     'piksel': {
-        'link_template': 'http://player.piksel.com/'
+        'link_template': '//player.piksel.com/'
                          '{video_id}',
         'embed_template': '<iframe width="480" height="395" '
                           'src="{video_link}" frameborder="0"></iframe>',
@@ -42,12 +53,24 @@ LIVE_PROVIDERS = {
         ]
     },
     'lightcastmedia': {
-        'link_template': 'http://{video_id}',
+        'link_template': '//{video_id}',
         'embed_template': '<iframe width="480" height="395" '
                           'src="{video_link}" frameborder="0"></iframe>',
         'validation_template': '{video_id}',
         'matches': [
             r"""([a-zA-Z0-9]+\.lightcastmedia.[a-z.]+/.+)""",
+        ]
+    },
+    'facebook': {
+        'link_template': '//www.facebook.com/video/embed?video_id={video_id}',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'https://www.facebook.com/video.php?v='
+                               '{video_id}',
+        'matches': [
+            r"""facebook.[a-z.]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/video/embed\?video_id\=([^"'/&?@]+)""",
+            r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
         ]
     },
 }
