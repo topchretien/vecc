@@ -84,7 +84,7 @@ class YoutubeAPI(WebAPI):
             self._results = {
                 'title': our_video['snippet']['title'],
                 'description': desc if desc else "",
-                'image': our_video['snippet']['thumbnails']['high']['url'],
+                'image': our_video['snippet']['thumbnails']['maxres']['url'],
                 'duration': self._parse_duration(
                     our_video['contentDetails']['duration']),
                 'status': self._is_ok(our_video['status']),

@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.2.6**:
+
+  * high res thumb for youtube
+
 * **v1.02**:
 
   * improved provider origin test
