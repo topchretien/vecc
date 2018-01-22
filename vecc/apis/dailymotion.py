@@ -13,7 +13,7 @@ from .webapi import WebAPI, APIError, convertduration
 
 class DailymotionAPI(WebAPI):
     __fields__ = ('fields=created_time,description,duration,id,status,'
-        'thumbnail_url,title,')
+        'thumbnail_url,title,width,height')
     __url__ = "https://api.dailymotion.com/video/{video_id}/?{fields}"
 
     def __init__(self):
@@ -77,6 +77,8 @@ class DailymotionAPI(WebAPI):
                 'duration': convertduration(
                     our_video['duration']),
                 'status': self._is_ok(our_video['status']),
-                'created_date': datetime.datetime.fromtimestamp(our_video['created_time'])
+                'created_date': datetime.datetime.fromtimestamp(our_video['created_time']),
+                'width': int(our_video['width']),
+                'height': int(our_video['height'])
             }
         return self._results

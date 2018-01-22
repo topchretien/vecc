@@ -43,6 +43,8 @@ class WebAPI(object):
         >>>     'description': 'Video description',
         >>>     'image': 'Image associated with the video',
         >>>     'duration': 'Video duration as %H:%M:%S',
+        >>>     'width': 'Video max width',
+        >>>     'height': 'Video max height',
         >>>     'status': 'True if the video is public and operational, else False'
         >>> }
         """

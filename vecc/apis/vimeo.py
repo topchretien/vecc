@@ -85,6 +85,8 @@ class VimeoAPI(WebAPI):
                         self._results['status'] = True
                         self._results['image'] = self._get_best_pic_from_player(videovar['thumbs'])
                         self._results['description'] = ''
+                        self._results['width'] = int(videovar.get('width', 640))
+                        self._results['height'] = int(videovar.get('height', 480))
                 return True
 
 
@@ -177,7 +179,9 @@ class VimeoAPI(WebAPI):
                 'status': self._is_ok(
                     self._data['status'],
                     self._data['privacy']),
-                'created_date': dateutil.parser.parse(self._data['created_time'])
+                'created_date': dateutil.parser.parse(self._data['created_time']),
+                'width': int(self._data.get('width', 640)),
+                'height': int(self._data.get('height', 480))
             }
         return self._results
 

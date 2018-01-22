@@ -21,7 +21,7 @@ def set_fb_token(token):
 
 class FacebookAPI(WebAPI):
     __token__ = 'not_set_put_one'
-    __part__ = ('created_time,description,length,picture,source,' +
+    __part__ = ('created_time,description,length,picture,source,format,' +
                 'title,status,published,privacy,content_tags,content_category')
     __url__ = ('/v2.6/{video_id}?fields={part}')
     __thumbs_url__ = ('/v2.6/{video_id}/thumbnails?fields=uri,is_preferred')
@@ -47,6 +47,17 @@ class FacebookAPI(WebAPI):
                     "meta",  property="og:description").get("content", "")
                 imgurl = textsoup.find(
                     "meta",  property="og:image").get("content", "")
+                #find video embed code
+                width = 640
+                height = 480
+                for code in textsoup.find_all('code'):
+                    if "data-video-height" in code.string:
+                        codesoup = BeautifulSoup(code.string, "html5lib")
+                        video = codesoup.find('video')
+                        if video:
+                            width = int(video.get("data-video-width", 640))
+                            height = int(video.get("data-video-height", 480))
+                        break
                 if not imgurl:
                     resp = requests.get(
                         'https://www.facebook.com/video/embed?video_id=' + self._video_id)
@@ -64,7 +75,9 @@ class FacebookAPI(WebAPI):
                     'description': description,
                     'duration': '',
                     'status': True,
-                    'image': imgurl
+                    'image': imgurl,
+                    'width': width,
+                    'height': height
                     }
                 return True
             except:
@@ -139,4 +152,19 @@ class FacebookAPI(WebAPI):
                     dateutil.parser.parse(self._data['created_time'])
             if 'content_tags' in self._data:
                 self._results['tags'] = self._data['content_tags']
+            width = 0
+            height = 0
+            if 'format' in self._data:
+                for fmt in self._data['format']:
+                    if 'width' in fmt and int(fmt['width'])>width:
+                        width = int(fmt['width'])
+                    if 'height' in fmt and int(fmt['height'])>height:
+                        height = int(fmt['height'])
+            if width!=0:
+                self._results['width'] = width
+                self._results['height'] = height
+            else:
+                self._results['width'] = 640
+                self._results['height'] = 480
+
         return self._results

@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.0**:
+
+  * added video width height values
+
 * **v1.2.6**:
 
   * high res thumb for youtube

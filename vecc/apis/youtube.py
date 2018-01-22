@@ -16,9 +16,12 @@ class YoutubeAPI(WebAPI):
     __part__ = 'snippet,contentDetails,status'
     __url__ = ('https://www.googleapis.com/youtube/v3/videos?id={video_id}'
             '&part={part}&key={key}')
+    __oembedurl__ = ('https://www.youtube.com/oembed?url='
+        'https://www.youtube.com/watch?v={video_id}')
 
     def __init__(self):
         self._data = {}
+        self._oembeddata = {}
         self._results = None
         self._pattern = re.compile(
             r"""P(?P<D>[0-9]{1,2}D)?(T)?(?P<H>[0-9]{1,2}H)?(?P<M>[0-9]{1,2}M)?(?P<S>[0-9]{1,2}S)?"""
@@ -34,10 +37,14 @@ class YoutubeAPI(WebAPI):
         if answer.status_code < 300:
             self._data = json.loads(answer.content)
             if self._data['pageInfo']['totalResults'] == 1:
+                #get additional info with oembed
+                oembedurl = self.__oembedurl__.format(video_id=self._video_id)
+                answeroembed = requests.get(oembedurl)
+                if answeroembed.status_code < 300:
+                    self._oembeddata = json.loads(answeroembed.content)
                 return True
             else:
                 raise APIError(404, 'Youtube video is not available')
-
         # Manage error situations
         error_msg = 'Unbound Source Error'
         if 300 <= answer.status_code < 400:
@@ -90,4 +97,8 @@ class YoutubeAPI(WebAPI):
                 'status': self._is_ok(our_video['status']),
                 'created_date': dateutil.parser.parse(our_video['snippet']['publishedAt'])
             }
+            if self._oembeddata:
+                #default : 4/3 format
+                self._results["width"] = int(self._oembeddata.get("width",640))
+                self._results["height"] = int(self._oembeddata.get("height",480))
         return self._results
