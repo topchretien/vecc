@@ -128,7 +128,7 @@ PROVIDERS = {
             r"""dailymotion.[a-z.]+/swf/video/([^"'/&?@]+)""",
             r"""dailymotion.[a-z.]+/swf/([^"'/&?@]+)""",
             r"""dailymotion.[a-z.]+/embed/video/([^"'/&?@]+)""",
-            r"""dailymotion.[a-z.]+/video/([^"'/&?@]+)_.*""",
+            r"""dailymotion.[a-z.]+/video/([^"'/&?@_]+)(_.*)?""",
             r"""dai.ly/([^"'/&?@]+)""",
         ]
     },

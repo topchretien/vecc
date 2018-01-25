@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.1**:
+
+  * fixed video url for dailymotion
+
 * **v1.3.0**:
 
   * added video width height values
