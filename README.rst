@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.2**:
+
+  * find best thumb rez for youtube
+
 * **v1.3.1**:
 
   * fixed video url for dailymotion

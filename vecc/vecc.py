@@ -97,7 +97,7 @@ def extract(code, extensions = ['mp4'],
                             vidinfos["errmsg"] = 'HTTP Server Error'
                         vidinfos['status'] = False
                 except Exception as e:
-                    if hasattr(e, '__module__') and e.__module__ == "requests.exceptions":
+                    if hasattr(e, '__class__'):
                         ret["errno"] = -1
                         ret["errmsg"] = "Error type: " + e.__class__.__name__
                     ret["status"] = False
@@ -131,7 +131,7 @@ def extract(code, extensions = ['mp4'],
             ret["errmsg"] = err.msg
             ret["status"] = False
         except Exception as e:
-            if hasattr(e, '__module__') and e.__module__ == "requests.exceptions":
+            if hasattr(e, '__class__'):
                 ret["errno"] = -1
                 ret["errmsg"] = "Error type: " + e.__class__.__name__
             ret["status"] = False

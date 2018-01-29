@@ -88,10 +88,19 @@ class YoutubeAPI(WebAPI):
         if not self._results:
             our_video = self._data['items'][0]
             desc = our_video['snippet']['description']
+            #find best rez
+            thumbs = our_video['snippet']['thumbnails']
+            max_width = 0
+            itemname = ""
+            for thumbname in thumbs:
+                thumb = thumbs[thumbname]
+                if int(thumb["width"]) > max_width:
+                    itemname = thumbname
+                    max_width = int(thumb["width"])
             self._results = {
                 'title': our_video['snippet']['title'],
                 'description': desc if desc else "",
-                'image': our_video['snippet']['thumbnails']['maxres']['url'],
+                'image': our_video['snippet']['thumbnails'][itemname]['url'],
                 'duration': self._parse_duration(
                     our_video['contentDetails']['duration']),
                 'status': self._is_ok(our_video['status']),
