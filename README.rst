@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.3**:
+
+  * fixed video width height when not available with api, get thumbnail size instead
+
 * **v1.3.2**:
 
   * find best thumb rez for youtube

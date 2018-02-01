@@ -110,4 +110,8 @@ class YoutubeAPI(WebAPI):
                 #default : 4/3 format
                 self._results["width"] = int(self._oembeddata.get("width",640))
                 self._results["height"] = int(self._oembeddata.get("height",480))
+            else:
+                #get thumbnail size
+                self._results["width"] = int(our_video['snippet']['thumbnails'][itemname].get("width",640))
+                self._results["height"] = int(our_video['snippet']['thumbnails'][itemname].get("height",640))
         return self._results
