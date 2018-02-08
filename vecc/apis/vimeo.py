@@ -75,7 +75,7 @@ class VimeoAPI(WebAPI):
                 bs = BeautifulSoup(test.content)
                 scr = bs.findAll('script')
                 for sc in scr:
-                    ff = re.search(r'var t\=(\{[^;]*)', sc.string)
+                    ff = re.search(r'var [a-zA-Z0-9]+\=(\{[^;]*)', sc.string)
                     if ff:
                         allvars = json.loads(ff.group(1))
                         videovar = allvars['video']

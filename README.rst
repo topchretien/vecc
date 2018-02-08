@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.5**:
+
+  * fixed a change in vimeo webpage info extraction
+
 * **v1.3.4**:
 
   * fixed small bug in youtube: video not available sometime throws exceptions
