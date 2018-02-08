@@ -36,7 +36,8 @@ class YoutubeAPI(WebAPI):
         answer = requests.get(built_url)
         if answer.status_code < 300:
             self._data = json.loads(answer.content)
-            if self._data['pageInfo']['totalResults'] == 1:
+            if (self._data['pageInfo']['totalResults'] == 1 and
+                'items' in self._data and self._data['items']):
                 #get additional info with oembed
                 oembedurl = self.__oembedurl__.format(video_id=self._video_id)
                 answeroembed = requests.get(oembedurl)

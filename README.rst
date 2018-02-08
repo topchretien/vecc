@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.4**:
+
+  * fixed small bug in youtube: video not available sometime throws exceptions
+
 * **v1.3.3**:
 
   * fixed video width height when not available with api, get thumbnail size instead
