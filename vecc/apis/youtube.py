@@ -35,14 +35,14 @@ class YoutubeAPI(WebAPI):
             key=self.__key__)
         answer = requests.get(built_url)
         if answer.status_code < 300:
-            self._data = json.loads(answer.content.decode('latin1'))
+            self._data = json.loads(answer.content.decode('utf-8'))
             if (self._data['pageInfo']['totalResults'] == 1 and
                 'items' in self._data and self._data['items']):
                 #get additional info with oembed
                 oembedurl = self.__oembedurl__.format(video_id=self._video_id)
                 answeroembed = requests.get(oembedurl)
                 if answeroembed.status_code < 300:
-                    self._oembeddata = json.loads(answeroembed.content.decode('latin1'))
+                    self._oembeddata = json.loads(answeroembed.content.decode('utf-8'))
                 return True
             else:
                 raise APIError(404, 'Youtube video is not available')
