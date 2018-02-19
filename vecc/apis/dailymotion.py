@@ -30,7 +30,7 @@ class DailymotionAPI(WebAPI):
             fields=self.__fields__)
 
         answer = requests.get(built_url)
-        self._data = json.loads(answer.content)
+        self._data = json.loads(answer.content.decode('latin1'))
         errorstr = ""
         if answer.status_code < 300:
             if 'status' in self._data:

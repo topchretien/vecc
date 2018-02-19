@@ -62,7 +62,7 @@ class VimeoAPI(WebAPI):
 
         answer = caller()
         errorstr = ""
-        self._data = json.loads(answer.content)
+        self._data = json.loads(answer.content.decode('latin1'))
         if answer.status_code < 300:
             return True
         else:
