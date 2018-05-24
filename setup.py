@@ -14,7 +14,7 @@ setup(
     author_email='mathieu.agopian@gmail.com',
     packages=find_packages(),
     include_package_data=True,
-    url='https://github.com/ellimac54/vecc',
+    url='https://github.com/topchretien/vecc',
     license='BSD',
     description='Video Embed Code Cleaner',
     long_description=long_description,

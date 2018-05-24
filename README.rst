@@ -147,6 +147,10 @@ Each provider configuration consists of:
 Changelog
 =========
 
+* **v1.3.6**:
+
+  * differenciate youtubechannel and youtube live providers
+
 * **v1.3.5**:
 
   * fixed a change in vimeo webpage info extraction
