@@ -18,7 +18,7 @@ LIVE_PROVIDERS = {
             r"""youtube.[a-z.]+/watch\?[^v]*v\=([^"'/&?@]+)""",
             r"""youtu.be/([^"'/&?@]+)""",
             r"""youtube.[a-z.]+/v/([^"'/&?@]+)""",
-            r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/embed/(?!live_stream)([^"'/&?@]+)""",
         ]
     },
     'youtubechannel': {
