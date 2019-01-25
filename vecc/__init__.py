@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__version__ = '1.3.6'
+__version__ = '1.3.7'
 
 try:
     from .vecc import extract, clean, valid
