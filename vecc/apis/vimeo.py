@@ -109,7 +109,7 @@ class VimeoAPI(WebAPI):
 
         for val in (60, 60):  # Minutes, then hours
             if vduration > val:
-                vduration = vduration / val
+                vduration = vduration // val
                 duration_list.append(vduration % val)
             else:
                 vduration = 0
