@@ -15,11 +15,12 @@ class YoutubeAPI(WebAPI):
     __key__ = 'AIzaSyC9A_hUq6r2IMgoMVU15CL4OFRoeTzY9vU'
     __part__ = 'snippet,contentDetails,status'
     __url__ = ('https://www.googleapis.com/youtube/v3/videos?id={video_id}'
-            '&part={part}&key={key}')
+               '&part={part}')
     __oembedurl__ = ('https://www.youtube.com/oembed?url='
-        'https://www.youtube.com/watch?v={video_id}')
+                     'https://www.youtube.com/watch?v={video_id}')
+    access_token = None
 
-    def __init__(self):
+    def __init__(self, access_token=None, **kwargs):
         self._data = {}
         self._oembeddata = {}
         self._results = None
@@ -27,22 +28,28 @@ class YoutubeAPI(WebAPI):
             r"""P(?P<D>[0-9]{1,2}D)?(T)?(?P<H>[0-9]{1,2}H)?(?P<M>[0-9]{1,2}M)?(?P<S>[0-9]{1,2}S)?"""
         )
         self._video_id = 0
+        self.access_token = access_token
 
     def _call_api(self):
         built_url = self.__url__.format(
             video_id=self._video_id,
-            part=self.__part__,
-            key=self.__key__)
+            part=self.__part__)
+        if self.access_token:
+            built_url += "&access_token=" + self.access_token
+        else:
+            built_url += "&key=" + self.__key__
+
         answer = requests.get(built_url)
         if answer.status_code < 300:
             self._data = json.loads(answer.content.decode('utf-8'))
             if (self._data['pageInfo']['totalResults'] == 1 and
-                'items' in self._data and self._data['items']):
-                #get additional info with oembed
+                    'items' in self._data and self._data['items']):
+                # get additional info with oembed
                 oembedurl = self.__oembedurl__.format(video_id=self._video_id)
                 answeroembed = requests.get(oembedurl)
                 if answeroembed.status_code < 300:
-                    self._oembeddata = json.loads(answeroembed.content.decode('utf-8'))
+                    self._oembeddata = json.loads(
+                        answeroembed.content.decode('utf-8'))
                 return True
             else:
                 raise APIError(404, 'Youtube video is not available')
@@ -70,9 +77,9 @@ class YoutubeAPI(WebAPI):
         return '%(H)02d:%(M)02d:%(S)02d' % dic
 
     def _is_ok(self, status):
-        """Extract privacy policy and upload status to determine availability."""
-        if status['uploadStatus'] in ('processed', 'uploaded') \
-                and status['privacyStatus'] != 'private':
+        """Extract privacy policy and upload status to determine availability.
+        """
+        if status['uploadStatus'] in ('processed', 'uploaded'):
             return True
         return False
 
@@ -89,7 +96,7 @@ class YoutubeAPI(WebAPI):
         if not self._results:
             our_video = self._data['items'][0]
             desc = our_video['snippet']['description']
-            #find best rez
+            # find best rez
             thumbs = our_video['snippet']['thumbnails']
             max_width = 0
             itemname = ""
@@ -105,14 +112,21 @@ class YoutubeAPI(WebAPI):
                 'duration': self._parse_duration(
                     our_video['contentDetails']['duration']),
                 'status': self._is_ok(our_video['status']),
-                'created_date': dateutil.parser.parse(our_video['snippet']['publishedAt'])
+                'created_date': dateutil.parser.parse(
+                    our_video['snippet']['publishedAt'])
             }
             if self._oembeddata:
-                #default : 4/3 format
-                self._results["width"] = int(self._oembeddata.get("width",640))
-                self._results["height"] = int(self._oembeddata.get("height",480))
+                # default : 4/3 format
+                self._results["width"] = int(
+                    self._oembeddata.get("width", 640))
+                self._results["height"] = int(
+                    self._oembeddata.get("height", 480))
             else:
-                #get thumbnail size
-                self._results["width"] = int(our_video['snippet']['thumbnails'][itemname].get("width",640))
-                self._results["height"] = int(our_video['snippet']['thumbnails'][itemname].get("height",640))
+                # get thumbnail size
+                self._results["width"] = int(
+                    our_video['snippet']['thumbnails'][itemname]
+                    .get("width", 640))
+                self._results["height"] = int(
+                    our_video['snippet']['thumbnails'][itemname]
+                    .get("height", 640))
         return self._results

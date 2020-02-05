@@ -16,7 +16,7 @@ class DailymotionAPI(WebAPI):
         'thumbnail_url,title,width,height')
     __url__ = "https://api.dailymotion.com/video/{video_id}/?{fields}"
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self._data = {}
         self._results = None
         self._pattern = re.compile(

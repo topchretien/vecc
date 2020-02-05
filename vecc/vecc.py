@@ -66,7 +66,7 @@ def valid(args):
 
 
 def extract(code, extensions = ['mp4'],
-    validate = True, validation_link = False, providers=PROVIDERS):
+    validate = True, validation_link = False, providers=PROVIDERS, **kwargs):
     video_id, provider = match(code, providers)
     clean_code = get_clean_code(video_id, provider, providers)
     real_link = get_link(video_id, provider, providers)
@@ -119,7 +119,7 @@ def extract(code, extensions = ['mp4'],
         except KeyError:
             ret["status"] = False
             return ret
-        api = Api()
+        api = Api(**kwargs)
         try:
             if api.check(video_id):
                 details = api.video_data

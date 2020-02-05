@@ -28,7 +28,7 @@ class VimeoAPI(WebAPI):
         'Accept': 'application/vnd.vimeo.*;version=3.2',
     }
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.token = self.__token__
         self._data = {}
         self._results = None

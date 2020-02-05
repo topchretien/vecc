@@ -8,10 +8,9 @@ import urllib
 from .webapi import WebAPI
 
 
-
 class PikselAPI(WebAPI):
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self._results = {}
 
     def check(self, video_id):

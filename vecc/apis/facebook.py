@@ -26,7 +26,7 @@ class FacebookAPI(WebAPI):
     __url__ = ('/v2.6/{video_id}?fields={part}')
     __thumbs_url__ = ('/v2.6/{video_id}/thumbnails?fields=uri,is_preferred')
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self._data = {}
         self._results = None
         self._video_id = 0
