@@ -19,8 +19,9 @@ class YoutubeAPI(WebAPI):
     __oembedurl__ = ('https://www.youtube.com/oembed?url='
                      'https://www.youtube.com/watch?v={video_id}')
     access_token = None
+    key = None
 
-    def __init__(self, access_token=None, **kwargs):
+    def __init__(self, access_token=None, key=None, **kwargs):
         self._data = {}
         self._oembeddata = {}
         self._results = None
@@ -29,6 +30,7 @@ class YoutubeAPI(WebAPI):
         )
         self._video_id = 0
         self.access_token = access_token
+        self.key = key
 
     def _call_api(self):
         built_url = self.__url__.format(
@@ -37,7 +39,7 @@ class YoutubeAPI(WebAPI):
         if self.access_token:
             built_url += "&access_token=" + self.access_token
         else:
-            built_url += "&key=" + self.__key__
+            built_url += "&key=" + (self.key or self.__key__)
 
         answer = requests.get(built_url)
         if answer.status_code < 300:
