@@ -142,6 +142,8 @@ class VimeoAPI(WebAPI):
 
     def _get_best_picture(self, pics_info):
         """Get the best picture available or None."""
+        if not pics_info:
+            return None
         if not pics_info['active']:
             return None
         pic_path = ''
@@ -179,7 +181,8 @@ class VimeoAPI(WebAPI):
                 'duration': self._parse_duration(self._data['duration']),
                 'status': self._is_ok(
                     self._data['status'],
-                    self._data['privacy']),
+                    self._data['privacy'],
+                    self._data['type']),
                 'created_date': dateutil.parser.parse(self._data['created_time']),
                 'width': int(self._data.get('width', 640)),
                 'height': int(self._data.get('height', 480))
