@@ -155,8 +155,9 @@ class VimeoAPI(WebAPI):
             pic_path = pic_path[0:ridx]
         return pic_path
 
-    def _is_ok(self, status, privacy):
-        if status == 'available' and privacy['view'] == 'anybody':
+    def _is_ok(self, status, privacy, typ='video'):
+        if ((status == 'available' or typ == 'live')
+                and privacy['view'] == 'anybody'):
             return True
         return False
 
