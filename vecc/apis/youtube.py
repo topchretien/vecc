@@ -21,7 +21,7 @@ class YoutubeAPI(WebAPI):
     access_token = None
     key = None
 
-    def __init__(self, access_token=None, key=None, **kwargs):
+    def __init__(self, access_token=None, key=None, debug=False, **kwargs):
         self._data = {}
         self._oembeddata = {}
         self._results = None
@@ -31,6 +31,7 @@ class YoutubeAPI(WebAPI):
         self._video_id = 0
         self.access_token = access_token
         self.key = key
+        self.debug = debug
 
     def _call_api(self):
         built_url = self.__url__.format(
@@ -115,8 +116,10 @@ class YoutubeAPI(WebAPI):
                     our_video['contentDetails']['duration']),
                 'status': self._is_ok(our_video['status']),
                 'created_date': dateutil.parser.parse(
-                    our_video['snippet']['publishedAt'])
+                    our_video['snippet']['publishedAt']),
             }
+            if self.debug:
+                self._results['raw_data'] = our_video
             if self._oembeddata:
                 # default : 4/3 format
                 self._results["width"] = int(

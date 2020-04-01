@@ -28,10 +28,11 @@ class VimeoAPI(WebAPI):
         'Accept': 'application/vnd.vimeo.*;version=3.2',
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, debug=False, **kwargs):
         self.token = self.__token__
         self._data = {}
         self._results = None
+        self.debug = debug
         self._video_id = 0
 
     # Internally we back this with an auth mechanism for Requests.
@@ -185,8 +186,10 @@ class VimeoAPI(WebAPI):
                     self._data['type']),
                 'created_date': dateutil.parser.parse(self._data['created_time']),
                 'width': int(self._data.get('width', 640)),
-                'height': int(self._data.get('height', 480))
+                'height': int(self._data.get('height', 480)),
             }
+            if self.debug:
+                self._results['raw_data'] = self._data
         return self._results
 
 

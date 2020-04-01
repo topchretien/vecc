@@ -24,6 +24,8 @@ class APIError(Exception):
 
 
 class WebAPI(object):
+    debug = False
+
     def check(self, video_id):
         """Check if the video exists.
 
