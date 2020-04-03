@@ -73,6 +73,20 @@ LIVE_PROVIDERS = {
             r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
         ]
     },
+    'vimeo': {
+        'link_template': '//player.vimeo.com/'
+                         'video/{video_id}?autoplay=1',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'http://vimeo.com/{video_id}',
+        'matches': [
+            r"""vimeo.[a-z.]+/video/([^"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/moogaloop.swf\?clip_id=([^"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/[a-z]+/([^a-z"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/[a-z]+/[a-z]+/([^a-z"'/&?@]+)""",
+            r"""vimeo.[a-z.]+/([^"'/&?@]+)""",
+        ]
+    },
 }
 
 
