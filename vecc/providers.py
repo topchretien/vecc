@@ -32,6 +32,15 @@ LIVE_PROVIDERS = {
             r"""youtube.[a-z.]+/embed/live_stream\?channel\=([^"'/&?@]+)""",
         ]
     },
+    'facebookpage': {
+        'link_template': 'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F{video_id}%2Flive%2F',
+        'embed_template': '<iframe width="480" height="395" '
+                          'src="{video_link}" frameborder="0"></iframe>',
+        'validation_template': 'https://www.facebook.com/{video_id}/live/',
+        'matches': [
+            r"""facebook.[a-z.]+/([^"'/&?@]+)/live/""",
+        ]
+    },
     'creacast': {
         'link_template': '//www.creacast.com/'
                          '{video_id}',
