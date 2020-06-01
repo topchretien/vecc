@@ -77,6 +77,7 @@ LIVE_PROVIDERS = {
         'validation_template': 'https://www.facebook.com/video.php?v='
                                '{video_id}',
         'matches': [
+            r"""facebook.[a-z.]+/watch/\?[^v]*v\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/video/embed\?video_id\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
@@ -175,6 +176,7 @@ PROVIDERS = {
         'validation_template': 'https://www.facebook.com/video.php?v='
                                '{video_id}',
         'matches': [
+            r"""facebook.[a-z.]+/watch/\?[^v]*v\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/video.php\?[^v]*v\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/video/embed\?video_id\=([^"'/&?@]+)""",
             r"""facebook.[a-z.]+/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/([^"'/&?@]+)""",
