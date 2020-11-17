@@ -13,7 +13,7 @@ from .webapi import WebAPI, APIError
 
 class YoutubeAPI(WebAPI):
     __key__ = 'AIzaSyC9A_hUq6r2IMgoMVU15CL4OFRoeTzY9vU'
-    __part__ = 'snippet,contentDetails,status'
+    __part__ = 'snippet,contentDetails,status,liveStreamingDetails'
     __url__ = ('https://www.googleapis.com/youtube/v3/videos?id={video_id}'
                '&part={part}')
     __oembedurl__ = ('https://www.youtube.com/oembed?url='
