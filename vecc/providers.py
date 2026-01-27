@@ -111,6 +111,7 @@ PROVIDERS = {
             r"""youtube.[a-z.]+/watch\?[^v]*v\=([^"'/&?@]+)""",
             r"""youtu.be/([^"'/&?@]+)""",
             r"""youtube.[a-z.]+/v/([^"'/&?@]+)""",
+            r"""youtube.[a-z.]+/live/([^"'/&?@]+)""",
             r"""youtube.[a-z.]+/embed/([^"'/&?@]+)""",
         ]
     },
