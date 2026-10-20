@@ -115,6 +115,7 @@ class YoutubeAPI(WebAPI):
                 'duration': self._parse_duration(
                     our_video['contentDetails']['duration']),
                 'status': self._is_ok(our_video['status']),
+                'embeddable': our_video['status'].get('embeddable', True),
                 'created_date': dateutil.parser.parse(
                     our_video['snippet']['publishedAt']),
             }
